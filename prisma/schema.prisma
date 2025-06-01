@@ -1,0 +1,56 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Book {
+  id          Int      @id @default(autoincrement())
+  title       String
+  author      String
+  price       Float
+  genre       String
+  description String
+  quantity    Int      @default(0)
+  review      Review[]
+  orders      OrderBook[]
+
+  @@map("Livro")
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  score     Int
+  text      String
+  name      String
+  bookId    Int      @map("livroId")
+  book      Book     @relation(fields: [bookId], references: [id], onDelete: Cascade) // relação Review -> Book = N:1 = um review só está associado a um único livro, mas um único livro pode ter vários reviews
+  createdAt DateTime @default(now())
+}
+
+model Order {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  books     OrderBook[]
+}
+
+model OrderBook {
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   Int
+
+  book      Book    @relation(fields: [bookId], references: [id])
+  bookId    Int
+
+  quantity  Int
+
+  @@id([orderId, bookId]) 
+}
