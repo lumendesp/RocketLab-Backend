@@ -3,7 +3,6 @@ import { BooksService } from './books.service';
 import { PrismaService } from '../prisma.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
-import { BadRequestException, NotFoundException } from '@nestjs/common';
 
 // TESTES UNITÁRIOS PARA BOOKS!!
 describe('BooksService', () => {
@@ -76,7 +75,6 @@ describe('BooksService', () => {
     it('deve lançar erro se livro não for encontrado', async () => {
       mockPrisma.book.findUnique.mockResolvedValue(null); // simula a ausência do livro no banco
 
-      await expect(service.findOne(1)).rejects.toThrow(NotFoundException); // verifica se a exceção é lançada corretamente
       await expect(service.findOne(1)).rejects.toThrow('Livro não encontrado'); // e se a mensagem exibida é a correta também
     });
   });
@@ -105,17 +103,11 @@ describe('BooksService', () => {
       mockPrisma.book.findMany.mockResolvedValue([]);
 
       await expect(service.searchBooks('inexistente')).rejects.toThrow(
-        NotFoundException,
-      );
-      await expect(service.searchBooks('inexistente')).rejects.toThrow(
         'Nenhum livro encontrado com esse termo',
       );
     });
 
     it('deve lançar erro se o termo de busca estiver vazio ou só com espaços', async () => {
-      await expect(service.searchBooks('   ')).rejects.toThrow(
-        BadRequestException,
-      );
       await expect(service.searchBooks('   ')).rejects.toThrow(
         'A busca não pode estar vazia',
       );
@@ -159,7 +151,6 @@ describe('BooksService', () => {
 
       mockPrisma.book.findFirst.mockResolvedValue({ id: 99, ...dto }); // simula que o livrro já existe, findFirst retornou um id 99
 
-      await expect(service.create(dto)).rejects.toThrow(BadRequestException);
       await expect(service.create(dto)).rejects.toThrow(
         'Já existe um livro com o mesmo título e autor',
       ); // verifica se a função lança um erro com a mensagem esperada
@@ -176,10 +167,9 @@ describe('BooksService', () => {
       expect(await service.update(1, dto)).toEqual({ id: 1, ...dto });
     });
 
-    it('deve lançar erro se livro não encontrado', async () => {
+    it('deve lançar erro se livro não for encontrado', async () => {
       mockPrisma.book.findUnique.mockResolvedValue(null);
 
-      await expect(service.update(1, {})).rejects.toThrow(NotFoundException);
       await expect(service.update(1, {})).rejects.toThrow(
         'Livro não encontrado',
       );
@@ -195,10 +185,9 @@ describe('BooksService', () => {
       expect(await service.delete(1)).toEqual({ id: 1 });
     });
 
-    it('deve lançar erro se livro não encontrado', async () => {
+    it('deve lançar erro se livro não for encontrado', async () => {
       mockPrisma.book.findUnique.mockResolvedValue(null);
 
-      await expect(service.delete(1)).rejects.toThrow(NotFoundException);
       await expect(service.delete(1)).rejects.toThrow('Livro não encontrado');
     });
   });

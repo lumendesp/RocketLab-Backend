@@ -7,6 +7,7 @@ import {
   Post,
   Put,
   Delete,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
@@ -41,10 +42,10 @@ export class BooksController {
     };
   }
 
-  @Get('/search/:id')
+  @Get('/search/:bookId')
   @ApiOperation({ summary: 'Retorna um livro, através do ID fornecido' })
-  async findOne(@Param('id') id: string) {
-    const book = await this.booksService.findOne(+id);
+  async findOne(@Param('bookId', ParseIntPipe) bookId: number) {
+    const book = await this.booksService.findOne(bookId);
     return {
       message: 'Livro encontrado com sucesso',
       book,

@@ -30,7 +30,7 @@ export class OrdersService {
 
       if (book.quantity < item.quantity) {
         throw new BadRequestException(
-          `Estoque insuficiente para o livro ID ${item.bookId}`,
+          `Estoque insuficiente para o livro com ID ${item.bookId}`,
         );
       }
     }
@@ -88,16 +88,4 @@ export class OrdersService {
       })),
     }));
   }
-
-  // // método para apagar todos os pedidos e resetar autoincrement no SQLite
-  // async resetOrders() {
-  //   // apaga todos os registros de Order e da tabela de relacionamento OrderBook
-  //   await this.prisma.orderBook.deleteMany();
-  //   await this.prisma.order.deleteMany();
-
-  //   // reseta o autoincrement da tabela Order no SQLite
-  //   await this.prisma.$executeRawUnsafe(
-  //     `DELETE FROM sqlite_sequence WHERE name='Order';`,
-  //   );
-  // }
 }
