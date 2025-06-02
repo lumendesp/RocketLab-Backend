@@ -61,13 +61,13 @@ pnpm prisma migrate dev --name init
 ### 6. Popule o banco com livros iniciais:
 
 ```bash
-pnpm tsx prisma/seed.ts
+npx tsx prisma/seed.ts
 ```
 
 ### 7. Se quiser apagar os dados e recomeçar:
 
 ```bash
-pnpm tsx prisma/clear.ts
+npx tsx prisma/clear.ts
 ```
 
 ### 8. Rode o servidor localmente:
