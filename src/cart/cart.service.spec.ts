@@ -211,7 +211,7 @@ describe('CartService', () => {
       mockPrisma.cartItem.deleteMany.mockResolvedValue({});
 
       const result = await service.clearCart();
-      expect(result).toEqual({ message: 'Carrinho limpo com sucesso' });
+      expect(result).toEqual({ message: 'O carrinho foi limpo com sucesso' });
     });
   });
 
@@ -256,7 +256,7 @@ describe('CartService', () => {
       mockPrisma.cart.findFirst.mockResolvedValue({ id: 1 });
       mockPrisma.cartItem.findMany.mockResolvedValue([]);
 
-      await expect(service.checkout()).rejects.toThrow('Carrinho está vazio');
+      await expect(service.checkout()).rejects.toThrow('O carrinho está vazio');
     });
 
     // caso de erro, ao tentar finalizar a compra de um livro que não tem estoque suficiente

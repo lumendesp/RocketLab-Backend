@@ -28,10 +28,16 @@ export class CartService {
     const cart = await this.getOrCreateCart(); // primeiro, garante que ele existe
 
     // depois, busca todos os itens relacionados à ele, junto dos dados dos livros
-    return this.prisma.cartItem.findMany({
+    const items = await this.prisma.cartItem.findMany({
       where: { cartId: cart.id },
       include: { book: true },
     });
+
+    if (items.length === 0) {
+      throw new NotFoundException('O carrinho está vazio.');
+    }
+
+    return items;
   }
 
   // função para adicionar um livro ao carrinho
@@ -150,7 +156,7 @@ export class CartService {
       where: { cartId: cart.id },
     });
 
-    return { message: 'Carrinho limpo com sucesso' };
+    return { message: 'O carrinho foi limpo com sucesso' };
   }
 
   // função para finalizar a compra
@@ -165,7 +171,7 @@ export class CartService {
 
     // se o carrinho estiver vazio, dá erro
     if (cartItems.length === 0) {
-      throw new BadRequestException('Carrinho está vazio');
+      throw new BadRequestException('O carrinho está vazio');
     }
 
     // para cada livro, vai ser feita uma validação do estoque disponível (dupla segurança)

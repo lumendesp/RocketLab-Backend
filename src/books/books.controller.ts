@@ -88,39 +88,4 @@ export class BooksController {
       message: 'Livro removido com sucesso',
     };
   }
-
-  // @Patch(':id/add-quantity')
-  // async addQuantity(@Param('id') id: string, @Body() data: UpdateQuantityDto) {
-  //   try {
-  //     const updatedBook = await this.booksService.updateQuantity(
-  //       +id,
-  //       data.quantity,
-  //     );
-  //     return {
-  //       message: 'Quantidade adicionada com sucesso',
-  //       book: updatedBook,
-  //     };
-  //   } catch (error) {
-  //     throw new BadRequestException(error.message || 'Erro ao adicionar quantidade');
-  //   }
-  // }
-
-  // @Patch(':id/remove-quantity')
-  // async removeQuantity(
-  //   @Param('id') id: string,
-  //   @Body() data: UpdateQuantityDto,
-  // ) {
-  //   try {
-  //     const updatedBook = await this.booksService.updateQuantity(
-  //       +id,
-  //       -data.quantity,
-  //     );
-  //     return {
-  //       message: 'Quantidade removida com sucesso',
-  //       book: updatedBook,
-  //     };
-  //   } catch (error) {
-  //     throw new BadRequestException(error.message || 'Erro ao remover quantidade');
-  //   }
-  // }
 }

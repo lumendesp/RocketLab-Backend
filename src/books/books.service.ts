@@ -12,11 +12,17 @@ export class BooksService {
   constructor(private prisma: PrismaService) {}
 
   async getBooks() {
-    return this.prisma.book.findMany({
+    const books = await this.prisma.book.findMany({
       include: {
         review: true,
       },
     });
+
+    if (books.length === 0) {
+      throw new NotFoundException('Nenhum livro encontrado no banco de dados');
+    }
+
+    return books;
   }
 
   async findOne(id: number) {
@@ -101,25 +107,4 @@ export class BooksService {
       where: { id },
     });
   }
-
-  // async updateQuantity(id: number, quantity: number) {
-  //   const book = await this.prisma.book.findUnique({
-  //     where: { id },
-  //   });
-
-  //   if (!book) {
-  //     throw new Error('Livro não encontrado');
-  //   }
-
-  //   const newQuantity = book.quantity + quantity;
-
-  //   if (newQuantity < 0) {
-  //     throw new Error('Quantidade insuficiente no estoque');
-  //   }
-
-  //   return this.prisma.book.update({
-  //     where: { id },
-  //     data: { quantity: newQuantity },
-  //   });
-  // }
 }
