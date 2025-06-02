@@ -1,98 +1,101 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🚀 RocketLib - Backend
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+O backend da **RocketLib** é uma API desenvolvida com **NestJS**, **Prisma** e **SQLite**, responsável por gerenciar o catálogo de livros, reviews, carrinho de compras e pedidos. Possui como diferencial a possibilidade de criação automática de um carrinho com o auxílio de uma LLM.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📦 Funcionalidades principais
 
-## Description
+- CRUD de livros
+- Criação e visualização de reviews para um determinado livro
+- Carrinho de compras com manipulação de itens
+- Criação de um carrinho automático com base nas suas preferências de leitura e nos livros do banco
+- Finalização de pedidos
+- Relacionamentos entre livros, reviews, pedidos e itens do carrinho
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+---
 
-## Project setup
+## ⚙️ Tecnologias utilizadas
 
-```bash
-$ pnpm install
-```
+- **NestJS** – framework Node.js para APIs robustas
+- **Prisma** – ORM para acesso ao banco de dados
+- **SQLite** – banco de dados leve para desenvolvimento local
+- **Groq API** – geração automática do carrinho via IA
+- **TypeScript** - linguagem utilizada
+- **pnpm** – gerenciador de pacotes
 
-## Compile and run the project
+---
+
+## 🚀 Como rodar o projeto localmente
+
+### 1. Clone o repositório
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+git clone https://github.com/lumendesp/RocketLab-Backend.git
+cd RocketLab-Backend
 ```
 
-## Run tests
+### 2. Certifique-se de que você tem o pnpm instalado. Se não tiver, instale com:
 
 ```bash
-# unit tests
-$ pnpm run test
-
-# e2e tests
-$ pnpm run test:e2e
-
-# test coverage
-$ pnpm run test:cov
+npm install -g pnpm
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 3. Depois, instale os pacotes do projeto:
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+pnpm install
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### 4. Configure a variável de ambiente:
+Crie um arquivo .env na raiz do projeto com o seguinte conteúdo (você pode copiar o .env.example):
 
-## Resources
+VITE_GROQ_API_KEY=sua_chave_da_api_groq_aqui
 
-Check out a few resources that may come in handy when working with NestJS:
+🔐 A chave da API Groq é necessária para gerar o carrinho automático ao enviar suas preferências de leitura. Para obter a sua chave, basta criar uma conta no Groq: https://console.groq.com/keys
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### 5. Configure o banco de dados:
 
-## Support
+```bash
+pnpm prisma migrate dev --name init
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### 6. Popule o banco com livros iniciais:
 
-## Stay in touch
+```bash
+pnpm tsx prisma/seed.ts
+```
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### 7. Se quiser apagar os dados e recomeçar:
 
-## License
+```bash
+pnpm tsx prisma/clear.ts
+```
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### 8. Rode o servidor localmente:
+
+```bash
+pnpm start:dev
+```
+
+## 📓 Documentação da API
+
+A documentação interativa (Swagger) estará disponível após rodar o projeto, acessando:
+
+👉 [http://localhost:3000/api](http://localhost:3000/api)
+
+## 🧪 Rodar testes
+
+```bash
+pnpm test
+```
+
+O projeto conta com 47 casos de testes unitários
+
+A cobertura dos testes pode ser verificada em:
+
+```bash
+pnpm test:cov
+```
+
+Depois, navegue em: coverage/lcov-report/index.html
+
+### Boa! Agora é só abrir no localhost e navegar pelo projeto 🚀
