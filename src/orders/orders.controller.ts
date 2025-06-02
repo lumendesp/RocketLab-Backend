@@ -7,13 +7,13 @@ import { ApiOperation } from '@nestjs/swagger';
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
-  @Post('make-an-order')
-  @ApiOperation({
-    summary: 'Faz a criação de um pedido no banco, através dos ids fornecidos',
-  })
-  async makeAnOrder(@Body() createOrderDto: CreateOrderDto) {
-    return await this.ordersService.create(createOrderDto);
-  }
+  // @Post('make-an-order')
+  // @ApiOperation({
+  //   summary: 'Faz a criação de um pedido no banco, através dos ids fornecidos',
+  // })
+  // async makeAnOrder(@Body() createOrderDto: CreateOrderDto) {
+  //   return await this.ordersService.create(createOrderDto);
+  // }
 
   @Get('view-orders')
   @ApiOperation({

@@ -14,15 +14,16 @@ generator client {
 }
 
 model Book {
-  id          Int      @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   title       String
   author      String
   price       Float
   genre       String
   description String
-  quantity    Int      @default(0)
+  quantity    Int         @default(0)
   review      Review[]
   orders      OrderBook[]
+  CartItem    CartItem[]
 
   @@map("Livro")
 }
@@ -38,19 +39,38 @@ model Review {
 }
 
 model Order {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
+  id        Int         @id @default(autoincrement())
+  createdAt DateTime    @default(now())
   books     OrderBook[]
 }
 
 model OrderBook {
-  order     Order   @relation(fields: [orderId], references: [id])
-  orderId   Int
+  order   Order @relation(fields: [orderId], references: [id])
+  orderId Int
 
-  book      Book    @relation(fields: [bookId], references: [id])
-  bookId    Int
+  book   Book @relation(fields: [bookId], references: [id])
+  bookId Int
 
-  quantity  Int
+  quantity Int
 
-  @@id([orderId, bookId]) 
+  @@id([orderId, bookId])
+}
+
+model Cart {
+  id        Int        @id @default(autoincrement())
+  items     CartItem[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model CartItem {
+  id       Int @id @default(autoincrement())
+  cartId   Int
+  bookId   Int
+  quantity Int @default(1)
+
+  cart Cart @relation(fields: [cartId], references: [id])
+  book Book @relation(fields: [bookId], references: [id])
+
+  @@unique([cartId, bookId])
 }
