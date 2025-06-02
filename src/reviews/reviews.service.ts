@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateReviewDto } from './dto/create-review.dto';
 
@@ -12,7 +12,7 @@ export class ReviewsService {
     });
 
     if (!book) {
-      throw new Error('Livro não encontrado');
+      throw new NotFoundException('Livro não encontrado');
     }
     return this.prisma.review.create({ data });
   }
@@ -23,12 +23,18 @@ export class ReviewsService {
     });
 
     if (!book) {
-      throw new Error('Livro não encontrado');
+      throw new NotFoundException('Livro não encontrado');
     }
 
-    return this.prisma.review.findMany({
+    const reviews = await this.prisma.review.findMany({
       where: { bookId },
       orderBy: { createdAt: 'desc' },
     });
+
+    if (!reviews.length) {
+      throw new NotFoundException('Nenhuma review encontrada para esse livro');
+    }
+
+    return reviews;
   }
 }

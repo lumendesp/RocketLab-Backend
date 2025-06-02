@@ -5,10 +5,9 @@ import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 
-// TESTES UNITÁRIOS!!
+// TESTES UNITÁRIOS PARA BOOKS!!
 describe('BooksService', () => {
   let service: BooksService;
-  let prisma: PrismaService;
 
   // cria um mock do PrismaService, com as funções usadas no BooksService
   const mockPrisma = {
@@ -37,7 +36,6 @@ describe('BooksService', () => {
     }).compile();
 
     service = module.get<BooksService>(BooksService);
-    prisma = module.get<PrismaService>(PrismaService);
   });
 
   afterEach(() => jest.clearAllMocks());
