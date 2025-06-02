@@ -13,7 +13,7 @@ import { ApiOperation } from '@nestjs/swagger';
 import { AddToCartDto } from './dto/add-to-cart.dto';
 import { UpdateCartDto } from './dto/update-cart.dto';
 import { CartItem } from '@prisma/client';
-import { AiService } from 'src/ai/ai.service';
+import { AiService } from '..//ai/ai.service';
 import { GenerateCartDto } from './dto/generate-cart.dto';
 
 @Controller('cart')
