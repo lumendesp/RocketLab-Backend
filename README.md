@@ -88,7 +88,7 @@ A documentação interativa (Swagger) estará disponível após rodar o projeto,
 pnpm test
 ```
 
-O projeto conta com 47 casos de testes unitários
+O projeto conta com 46 casos de testes unitários
 
 A cobertura dos testes pode ser verificada em:
 
