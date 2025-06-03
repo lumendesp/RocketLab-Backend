@@ -58,16 +58,16 @@ VITE_GROQ_API_KEY=sua_chave_da_api_groq_aqui
 pnpm prisma migrate dev --name init
 ```
 
-### 6. Popule o banco com livros iniciais:
-
-```bash
-npx tsx prisma/seed.ts
-```
-
-### 7. Se quiser apagar os dados e recomeçar:
+### 6. Limpe o banco:
 
 ```bash
 npx tsx prisma/clear.ts
+```
+
+### 7. Popule o banco com livros iniciais:
+
+```bash
+npx tsx prisma/seed.ts
 ```
 
 ### 8. Rode o servidor localmente:
